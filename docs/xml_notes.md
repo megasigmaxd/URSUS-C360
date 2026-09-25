@@ -61,10 +61,11 @@ koniec ramienia (1,06; −1,66), wieszak 0,630 m. Dla wysokości zaczepu 0,25 / 
 z rozwiązania czworoboku `liftArm` −11,52° / 42,24° (liniowa interpolacja myli się < 0,5°). Walidator przelicza to
 z i3d i ostrzega, gdy geometria się zmieni.
 
-## Wymagane zmiany w i3d
+## Zmiany w i3d (zastosowane)
 
-Punkty 1–5 są już zastosowane w `FS25_UrsusC360/ursusC360.i3d` (build 04:33, walidator bez uwag do orientacji);
-zostają do zrobienia ustawienia fizyki z sekcji „i3d physics attributes” (kolizje, `clipDistance`, `density`, węzeł paliwa).
+Punkty 1–5 oraz ustawienia fizyki z sekcji „i3d physics attributes” (filtry kolizji, `clipDistance`, `density`,
+węzeł tankowania `exactFillRootNodeFuel`) są zastosowane w `FS25_UrsusC360/ursusC360.i3d`;
+`tools/validate_mod.py` zwraca 0 błędów i 0 ostrzeżeń.
 
 1. `steeringWheel` musi mieć rotację 0 0 0 – pochylenie kolumny (−36,87° X) na nowym rodzicu (np. `steeringWheelRot`),
    bo `Drivable` co klatkę zeruje X/Z. Oś Y (wzdłuż kolumny do kierowcy) zostaje.
@@ -97,11 +98,11 @@ pochodzą z tych eksportów. W FS25 zamiast `collisionMask` z FS22 są `collisio
 - `0x10004` = bit 2 `CAMERA_BLOCKING` + bit 16 `VEHICLE`. `0xfe3ffb83` = wszystkie bity oprócz `CAMERA_BLOCKING`,
   `GROUND_TIP_BLOCKING`, `PLACEMENT_BLOCKING`, `AI_BLOCKING`, `PRECIPITATION_BLOCKING`, `TERRAIN_DISPLACEMENT`,
   `ANIMAL_POSITIONING`, `ANIMAL_NAV_MESH_BLOCKING`, `TRAFFIC_VEHICLE_BLOCKING` (objętości pomocnicze map).
-- `Vehicle:loadComponentFromXML` ostrzega, gdy grupa lub maska komponentu nie ma bitu `VEHICLE`. Wcześniejszy eksport
+- `Vehicle:loadComponentFromXML` ostrzega, gdy grupa lub maska komponentu nie ma bitu `VEHICLE`. Wczesny eksport
   zapisywał `0x2000` / `0xfffffbff` (w FS25 bit 13 to `ROAD`: ciągnik bez `VEHICLE` i `CAMERA_BLOCKING`, niewidoczny dla
-  wyzwalaczy i raycastów filtrujących po `VEHICLE`, np. pola kolizji AI `AI_BLOCKING|PLAYER|TREE|VEHICLE`). Build 04:37
-  (`blender/export_i3d.py`, `COLLISION`) ma już `0x10004` / `0xfe3ffb83`; brakuje jeszcze `clipDistance="300"` na
-  komponencie i `density="0.001"` na dzieciach (ostrzeżenia walidatora).
+  wyzwalaczy i raycastów filtrujących po `VEHICLE`, np. pola kolizji AI `AI_BLOCKING|PLAYER|TREE|VEHICLE`). Obecny
+  eksport (`blender/export_i3d.py`, `COLLISION`) zapisuje `0x10004` / `0xfe3ffb83`, `clipDistance="300"` na
+  komponencie i `density="0.001"` na dzieciach.
 - Komponent – czego nie dawać do i3d: masa, środek masy, `inertiaScale` i `solverIterationCount` przychodzą z XML
   (`setMass` tylko dla komponentu dynamicznego, `setCenterOfMass`, `setSolverIterationCount`), więc `density` komponentu
   nie ma znaczenia (eksporty GE10 go nie mają). Tłumienia zostawić domyślne (dev-ostrzeżenie przy liniowym > 0,01,
@@ -115,10 +116,10 @@ pochodzą z tych eksportów. W FS25 zamiast `collisionMask` z FS22 są `collisio
   CollisionFlag.FILLABLE` (dystrybutory i zbiorniki paliwa widzą tylko kształty z bitem `FILLABLE` w grupie),
   `FillUnit` rejestruje tylko `exactFillRootNode` z bitem `FILLABLE` (inaczej ostrzeżenie i pominięcie), a `Motorized`
   loguje „Missing exactFillRootNode for fuel fill unit”. Bez niego ciągnika nie da się zatankować.
-  Propozycja węzła (poza kontraktem – do dopisania w `docs/i3d_nodes.md`): `exactFillRootNodeFuel`, Shape z prostopadłościanem
-  ok. 0,30 × 0,20 × 0,30 m, środek (x = −0,14, y = 1,40, z = 0,30) nad korkiem wlewu paliwa na masce, rotacja 0 0 0,
-  dziecko `ursusC360_main_component1`, atrybuty z tabeli (c). W XML w jednostce paliwa (`fillUnit` diesel) dodać:
-  `<exactFillRootNode node="exactFillRootNodeFuel"/>`. Walidator ostrzega, dopóki go brakuje.
+  Węzeł `exactFillRootNodeFuel` (w kontrakcie `docs/i3d_nodes.md`): Shape z prostopadłościanem 0,30 × 0,20 × 0,30 m,
+  środek (x = −0,14, y = 1,40, z = 0,30) nad korkiem wlewu paliwa na masce, rotacja 0 0 0, dziecko
+  `ursusC360_main_component1`, atrybuty z tabeli (c); w XML jednostka paliwa (`fillUnit` diesel) zawiera
+  `<exactFillRootNode node="exactFillRootNodeFuel"/>`. Walidator ostrzega, gdyby go zabrakło.
 - Koła: fizyka kół nie potrzebuje niczego w i3d – `WheelPhysics` tworzy kształt koła skryptem (`createWheelShape` na
   komponencie, grupa `VEHICLE`, maska `0x7e3fff83` = wszystko oprócz `WATER` i objętości pomocniczych; bez
   `TERRAIN_DISPLACEMENT`, gdy koło nie zapada się w teren). W i3d wystarczą: `repr` (TransformGroup w środku koła) wewnątrz
@@ -132,7 +133,9 @@ pochodzą z tych eksportów. W FS25 zamiast `collisionMask` z FS22 są `collisio
 ## Niepewności
 
 - Proporcje głośności (silnik / skrzynia / hydraulika) ustawione z pomiarów RMS w `sounds.json`, nie odsłuchane w grze.
-  `sounds.json` podaje duży skok na szwie pętli dla `gearboxWhine`, `hydraulicPump` i `horn` (`seam_step_ratio` 0,4–0,98) – możliwe kliknięcie na złączeniu pętli.
+  `seam_step_ratio` w `sounds.json` to skok próbek na szwie pętli podzielony przez największy skok w całym pliku; wartości
+  < 1 oznaczają, że szew nie odstaje. Dla `gearboxWhine`, `hydraulicPump` i `horn` (0,4–0,98) wynik wynika z ostrych
+  zboczy samego przebiegu, a pętle są z konstrukcji ciągłe (całkowita liczba okresów, filtracja kołowa).
 - `SPEED` = km/h wynika z użycia w plikach gry (rejestracja typów modyfikatorów nie jest widoczna w LUADOC).
 - Sprężyny/tłumienie opon, siła hamowania (5) i `accelerationLimit` (1,5) są wyliczone, nie przetestowane w grze.
 - Wahliwa oś przednia nie jest animowana (wymagałaby osi `frontAxle` z +Z w bok); obroty jałowe 2350 i blokada mechanizmu różnicowego nie są modelowane.
