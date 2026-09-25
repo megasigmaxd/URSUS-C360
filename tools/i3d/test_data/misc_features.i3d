@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!-- misc feature test: colors, uv1, generic, skinning, merge-group indices, splines, meshUsage -->
+<i3D name="misc_features.i3d" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="hoplite synthetic test (misc features)" version="1"/>
+  </Asset>
+  <Materials>
+    <Material name="decal_mat" materialId="1" diffuseColor="1 1 1 1">
+    </Material>
+  </Materials>
+  <!-- a commented-out <Shapes> element must not be touched: <Shapes></Shapes> -->
+  <Shapes>
+    <IndexedTriangleSet name="decal_quad" shapeId="2" meshUsage="256" vertexCompressionRange="2.0" bvCenter="0 0.5 0" bvRadius="0.75">
+      <Vertices count="4" normal="true" uv0="true" uv1="true" color="true" generic="true">
+        <v p="-0.5 0 0" n="0 0 1" t0="0 0" t1="0 0" c="1 0 0 1" g="0"/>
+        <v p="0.5 0 0" n="0 0 1" t0="1 0" t1="0.5 0" c="0 1 0 0.5" g="1"/>
+        <v p="0.5 1 0" n="0 0 1" t0="1 1" t1="0.5 0.5" c="0 0 1 1" g="2"/>
+        <v p="-0.5 1 0" n="0 0 1" t0="0 1" t1="0 0.5" c="1 1 1" g="3"/>
+      </Vertices>
+      <Triangles count="2">
+        <t vi="0 1 2"/>
+        <t vi="0 2 3"/>
+      </Triangles>
+      <Subsets count="1">
+        <Subset firstVertex="0" numVertices="4" firstIndex="0" numIndices="6" uvDensity1="0.125" materialSlotName="decal"/>
+      </Subsets>
+    </IndexedTriangleSet>
+    <IndexedTriangleSet name="skinned_tri" shapeId="3">
+      <Vertices count="3" normal="true" blendweights="true">
+        <v p="0 0 0" n="0 1 0" bw="1 0 0 0" bi="0 0 0 0"/>
+        <v p="1 0 0" n="0 1 0" bw="0.5 0.5 0 0" bi="0 1 0 0"/>
+        <v p="0 0 1" n="0 1 0" bw="0.25 0.25 0.5" bi="0 1 2"/>
+      </Vertices>
+      <Triangles count="1">
+        <t vi="0 1 2"/>
+      </Triangles>
+      <Subsets count="1">
+        <Subset firstVertex="0" numVertices="3" firstIndex="0" numIndices="3"/>
+      </Subsets>
+    </IndexedTriangleSet>
+    <IndexedTriangleSet name="merge_group" shapeId="4">
+      <Vertices count="3" normal="true" singleblendweights="true">
+        <v p="0 0 0" n="0 0 1" bi="0"/>
+        <v p="1 0 0" n="0 0 1" bi="1"/>
+        <v p="0 1 0" n="0 0 1" bi="2"/>
+      </Vertices>
+      <Triangles count="1">
+        <t vi="0 1 2"/>
+      </Triangles>
+      <Subsets count="1">
+        <Subset firstVertex="0" numVertices="3" firstIndex="0" numIndices="3"/>
+      </Subsets>
+    </IndexedTriangleSet>
+    <NurbsCurve name="hose_curve" shapeId="5" type="cubic" degree="3" form="open">
+      <cv c="0 0 0"/>
+      <cv c="1 0.5 0"/>
+      <cv c="2 0.5 1"/>
+      <cv c="3 0 1"/>
+    </NurbsCurve>
+    <NurbsCurve name="loop" shapeId="6" type="linear" form="closed">
+      <cv c="0 0 0"/>
+      <cv c="1 0 0"/>
+      <cv c="0 0 1"/>
+    </NurbsCurve>
+  </Shapes>
+  <Scene>
+    <Shape name="decal_quad" shapeId="2" nodeId="1" materialIds="1"/>
+    <Shape name="merge_group" shapeId="4" nodeId="2" materialIds="1"/>
+  </Scene>
+</i3D>
