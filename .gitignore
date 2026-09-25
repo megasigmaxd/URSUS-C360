@@ -1,0 +1,5 @@
+build/
+__pycache__/
+*.pyc
+*.blend1
+dist/*.tmp
