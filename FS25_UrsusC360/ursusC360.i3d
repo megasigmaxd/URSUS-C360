@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<i3D name="ursusC360" version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://i3d.giants.ch/schema/i3d-1.6.xsd">
+  <Asset>
+    <Export program="Hoplite Blender pipeline (blender/export_i3d.py)" version="1.0"/>
+  </Asset>
+  <Files>
+    <File fileId="1" filename="textures/paintGrey_diffuse.dds"/>
+    <File fileId="2" filename="textures/paintGrey_normal.dds"/>
+    <File fileId="3" filename="textures/paintGrey_specular.dds"/>
+    <File fileId="4" filename="textures/steelBare_diffuse.dds"/>
+    <File fileId="5" filename="textures/steelBare_normal.dds"/>
+    <File fileId="6" filename="textures/steelBare_specular.dds"/>
+    <File fileId="7" filename="textures/exhaustRust_diffuse.dds"/>
+    <File fileId="8" filename="textures/exhaustRust_normal.dds"/>
+    <File fileId="9" filename="textures/exhaustRust_specular.dds"/>
+    <File fileId="10" filename="textures/needle.dds"/>
+    <File fileId="11" filename="textures/seatVinyl_diffuse.dds"/>
+    <File fileId="12" filename="textures/seatVinyl_normal.dds"/>
+    <File fileId="13" filename="textures/seatVinyl_specular.dds"/>
+    <File fileId="14" filename="textures/blackMetal_diffuse.dds"/>
+    <File fileId="15" filename="textures/blackMetal_normal.dds"/>
+    <File fileId="16" filename="textures/blackMetal_specular.dds"/>
+    <File fileId="17" filename="textures/paintRed_diffuse.dds"/>
+    <File fileId="18" filename="textures/paintRed_normal.dds"/>
+    <File fileId="19" filename="textures/paintRed_specular.dds"/>
+    <File fileId="20" filename="textures/paintCream_diffuse.dds"/>
+    <File fileId="21" filename="textures/paintCream_normal.dds"/>
+    <File fileId="22" filename="textures/paintCream_specular.dds"/>
+    <File fileId="23" filename="textures/radiatorCore_diffuse.dds"/>
+    <File fileId="24" filename="textures/radiatorCore_normal.dds"/>
+    <File fileId="25" filename="textures/radiatorCore_specular.dds"/>
+    <File fileId="26" filename="textures/decal_frontLogo.dds"/>
+    <File fileId="27" filename="textures/decal_hoodStrip.dds"/>
+    <File fileId="28" filename="textures/lensClear_diffuse.dds"/>
+    <File fileId="29" filename="textures/lens_normal.dds"/>
+    <File fileId="30" filename="textures/lensOrange_diffuse.dds"/>
+    <File fileId="31" filename="textures/rubberTyre_diffuse.dds"/>
+    <File fileId="32" filename="textures/rubberTyre_normal.dds"/>
+    <File fileId="33" filename="textures/rubberTyre_specular.dds"/>
+    <File fileId="34" filename="textures/lensRed_diffuse.dds"/>
+    <File fileId="35" filename="textures/paintLightGrey_diffuse.dds"/>
+    <File fileId="36" filename="textures/paintLightGrey_normal.dds"/>
+    <File fileId="37" filename="textures/paintLightGrey_specular.dds"/>
+    <File fileId="38" filename="textures/gauge_tacho.dds"/>
+    <File fileId="39" filename="textures/gauge_small.dds"/>
+    <File fileId="40" filename="textures/glass_diffuse.dds"/>
+    <File fileId="41" filename="textures/glass_specular.dds"/>
+  </Files>
+  <Materials>
+    <Material name="collision" materialId="1" diffuseColor="0.5 0 0.5 1" specularColor="0 0.5 0"/>
+    <Material name="paintGrey" materialId="2">
+      <Texture fileId="1"/>
+      <Normalmap fileId="2"/>
+      <Glossmap fileId="3"/>
+    </Material>
+    <Material name="steelBare" materialId="3">
+      <Texture fileId="4"/>
+      <Normalmap fileId="5"/>
+      <Glossmap fileId="6"/>
+    </Material>
+    <Material name="exhaustRust" materialId="4">
+      <Texture fileId="7"/>
+      <Normalmap fileId="8"/>
+      <Glossmap fileId="9"/>
+    </Material>
+    <Material name="needle" materialId="5" alphaBlending="true" specularColor="0.6 0.5 0">
+      <Texture fileId="10"/>
+    </Material>
+    <Material name="seatVinyl" materialId="6">
+      <Texture fileId="11"/>
+      <Normalmap fileId="12"/>
+      <Glossmap fileId="13"/>
+    </Material>
+    <Material name="blackMetal" materialId="7">
+      <Texture fileId="14"/>
+      <Normalmap fileId="15"/>
+      <Glossmap fileId="16"/>
+    </Material>
+    <Material name="paintRed" materialId="8">
+      <Texture fileId="17"/>
+      <Normalmap fileId="18"/>
+      <Glossmap fileId="19"/>
+    </Material>
+    <Material name="paintCream" materialId="9">
+      <Texture fileId="20"/>
+      <Normalmap fileId="21"/>
+      <Glossmap fileId="22"/>
+    </Material>
+    <Material name="radiatorCore" materialId="10">
+      <Texture fileId="23"/>
+      <Normalmap fileId="24"/>
+      <Glossmap fileId="25"/>
+    </Material>
+    <Material name="decal_frontLogo" materialId="11" alphaBlending="true" specularColor="0.65 0.5 0">
+      <Texture fileId="26"/>
+    </Material>
+    <Material name="decal_hoodStrip" materialId="12" specularColor="0.65 0.5 0">
+      <Texture fileId="27"/>
+    </Material>
+    <Material name="lensClear" materialId="13" specularColor="0.95 0.5 0">
+      <Texture fileId="28"/>
+      <Normalmap fileId="29"/>
+    </Material>
+    <Material name="lensOrange" materialId="14" specularColor="0.9 0.5 0">
+      <Texture fileId="30"/>
+      <Normalmap fileId="29"/>
+    </Material>
+    <Material name="rubberTyre" materialId="15">
+      <Texture fileId="31"/>
+      <Normalmap fileId="32"/>
+      <Glossmap fileId="33"/>
+    </Material>
+    <Material name="lensRed" materialId="16" specularColor="0.9 0.5 0">
+      <Texture fileId="34"/>
+      <Normalmap fileId="29"/>
+    </Material>
+    <Material name="paintLightGrey" materialId="17">
+      <Texture fileId="35"/>
+      <Normalmap fileId="36"/>
+      <Glossmap fileId="37"/>
+    </Material>
+    <Material name="gauge_tacho" materialId="18" specularColor="0.7 0.5 0">
+      <Texture fileId="38"/>
+    </Material>
+    <Material name="gauge_small" materialId="19" specularColor="0.7 0.5 0">
+      <Texture fileId="39"/>
+    </Material>
+    <Material name="glass" materialId="20" alphaBlending="true">
+      <Texture fileId="40"/>
+      <Glossmap fileId="41"/>
+    </Material>
+  </Materials>
+  <Shapes externalShapesFile="ursusC360.i3d.shapes">
+  </Shapes>
+  <Dynamics>
+  </Dynamics>
+  <Scene>
+    <Shape name="ursusC360_main_component1" shapeId="1" dynamic="true" compound="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" clipDistance="300" nodeId="1" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="1">
+      <TransformGroup name="attacherJointTrailer" translation="0 0.8 -1.5" rotation="0 90 0" nodeId="2"/>
+      <TransformGroup name="attacherJointTrailerLow" translation="0 0.42 -1.8" rotation="0 90 0" nodeId="3"/>
+      <TransformGroup name="bottomArm" translation="0 0.48 -1.12" nodeId="4">
+        <TransformGroup name="attacherJointBack" translation="0 -0.08 -0.81" rotation="0 90 0" nodeId="5"/>
+        <Shape name="bottomArmLeft" shapeId="2" nodeId="6" castsShadows="true" receiveShadows="true" materialIds="2 3">
+          <TransformGroup name="liftRodLeftRef" translation="0.345 -0.04 -0.43" nodeId="7"/>
+        </Shape>
+        <Shape name="bottomArmRight" shapeId="3" nodeId="8" castsShadows="true" receiveShadows="true" materialIds="2 3">
+          <TransformGroup name="liftRodRightRef" translation="-0.345 -0.04 -0.43" nodeId="9"/>
+        </Shape>
+      </TransformGroup>
+      <TransformGroup name="collisions" nodeId="10">
+        <Shape name="collisionCab" shapeId="4" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="11" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="1"/>
+        <Shape name="collisionFenderLeft" shapeId="5" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="12" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="1"/>
+        <Shape name="collisionFenderRight" shapeId="6" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="13" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="1"/>
+        <Shape name="collisionRear" shapeId="7" compoundChild="true" collisionFilterGroup="0x10004" collisionFilterMask="0xfe3ffb83" density="0.001" nodeId="14" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="1"/>
+      </TransformGroup>
+      <TransformGroup name="enterReferenceNode" translation="0.75 1.3 -0.25" nodeId="15"/>
+      <Shape name="exactFillRootNodeFuel" shapeId="8" kinematic="true" compound="true" collisionFilterGroup="0x40000000" collisionFilterMask="0x20000000" nodeId="16" castsShadows="false" receiveShadows="false" nonRenderable="true" materialIds="1"/>
+      <Shape name="exhaustFlap" translation="0.2 2.023 0.276" shapeId="9" nodeId="17" castsShadows="true" receiveShadows="true" materialIds="4"/>
+      <TransformGroup name="exhaustNode" translation="0.2 2.025 0.24" nodeId="18"/>
+      <TransformGroup name="exitPoint" translation="1.3 0.05 -0.45" nodeId="19"/>
+      <TransformGroup name="frontAxle" translation="0 0.47 1.0625" nodeId="20">
+        <Shape name="frontAxleMesh" shapeId="10" nodeId="21" castsShadows="true" receiveShadows="true" materialIds="2 3"/>
+      </TransformGroup>
+      <TransformGroup name="fuelNeedleRot" translation="-0.13 1.18492 -0.100496" rotation="-14.9951 180 3.16989e-14" nodeId="22">
+        <Shape name="fuelNeedle" shapeId="11" nodeId="23" castsShadows="true" receiveShadows="true" materialIds="5"/>
+      </TransformGroup>
+      <TransformGroup name="indoorCameraTarget" translation="0 1.9 -0.84" nodeId="24">
+        <Camera name="indoorCamera" rotation="-4.32571e-06 180 0" fov="50.0468" nearClip="0.05" farClip="5000" nodeId="25"/>
+      </TransformGroup>
+      <TransformGroup name="leftFootTarget" translation="0.2 1.12 -0.1" nodeId="26"/>
+      <TransformGroup name="liftArm" translation="0 1.13 -1.26" nodeId="27">
+        <Shape name="liftArmMesh" shapeId="12" nodeId="28" castsShadows="true" receiveShadows="true" materialIds="2"/>
+        <TransformGroup name="liftRodLeft" translation="0.3 -0.0700001 -0.4" rotation="-4.08767 79.9393 -90" nodeId="29">
+          <Shape name="liftRodLeftMesh" translation="3.18512e-08 1.30385e-08 -1.04308e-07" shapeId="13" nodeId="30" castsShadows="true" receiveShadows="true" materialIds="3 2"/>
+        </TransformGroup>
+        <TransformGroup name="liftRodRight" translation="-0.3 -0.0700001 -0.4" rotation="4.08765 79.9393 -90" nodeId="31">
+          <Shape name="liftRodRightMesh" translation="7.24569e-08 3.35276e-08 1.00583e-07" shapeId="14" nodeId="32" castsShadows="true" receiveShadows="true" materialIds="3 2"/>
+        </TransformGroup>
+      </TransformGroup>
+      <TransformGroup name="lights" nodeId="33">
+        <Light name="brakeLightLeft" translation="0.82 1.18169 -1.75079" type="point" color="1 0.03 0.02" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="3" nodeId="34"/>
+        <Light name="brakeLightRight" translation="-0.82 1.18169 -1.75079" type="point" color="1 0.03 0.02" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="3" nodeId="35"/>
+        <Light name="frontLightLeft" translation="0.388 1 1.6" rotation="-5.00001 180 -5.07566e-13" type="spot" color="1 0.94 0.82" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="45" coneAngle="70" dropOff="3" nodeId="36"/>
+        <Light name="frontLightRight" translation="-0.388 1 1.6" rotation="-5.00001 180 -5.07566e-13" type="spot" color="1 0.94 0.82" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="45" coneAngle="70" dropOff="3" nodeId="37"/>
+        <Light name="tailLightLeft" translation="0.82 1.18169 -1.75079" type="point" color="1 0.04 0.02" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="1.5" nodeId="38"/>
+        <Light name="tailLightRight" translation="-0.82 1.18169 -1.75079" type="point" color="1 0.04 0.02" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="1.5" nodeId="39"/>
+        <Light name="turnLightLeftBack" translation="0.78 1.18169 -1.75079" type="point" color="1 0.45 0" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="2" nodeId="40"/>
+        <Light name="turnLightLeftFront" translation="0.335 1.165 1.58" type="point" color="1 0.45 0" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="2" nodeId="41"/>
+        <Light name="turnLightRightBack" translation="-0.78 1.18169 -1.75079" type="point" color="1 0.45 0" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="2" nodeId="42"/>
+        <Light name="turnLightRightFront" translation="-0.335 1.165 1.58" type="point" color="1 0.45 0" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="2" nodeId="43"/>
+        <Light name="workLightBack" translation="0 2.15 -1.335" rotation="-25 0 0" type="spot" color="1 0.95 0.85" emitDiffuse="true" emitSpecular="true" castShadowMap="false" decayRate="4" range="25" coneAngle="90" dropOff="3" nodeId="44"/>
+      </TransformGroup>
+      <TransformGroup name="outdoorCameraTarget" translation="0 1.5 0" nodeId="45">
+        <Camera name="outdoorCamera" translation="0 0 -8" rotation="-4.32571e-06 180 0" fov="42.1035" nearClip="0.05" farClip="5000" nodeId="46"/>
+      </TransformGroup>
+      <TransformGroup name="playerSkin" translation="0 1.25 -0.82" nodeId="47"/>
+      <TransformGroup name="ptoBack" translation="0 0.655 -1.56" rotation="0 180 0" nodeId="48"/>
+      <TransformGroup name="rightFootTarget" translation="-0.15 1.12 -0.1" nodeId="49"/>
+      <TransformGroup name="rpmNeedleRot" translation="0.13 1.19492 -0.0978173" rotation="-14.9951 180 3.16989e-14" nodeId="50">
+        <Shape name="rpmNeedle" shapeId="15" nodeId="51" castsShadows="true" receiveShadows="true" materialIds="5"/>
+      </TransformGroup>
+      <Shape name="seat" shapeId="16" nodeId="52" castsShadows="true" receiveShadows="true" materialIds="6 7"/>
+      <TransformGroup name="soundCabin" translation="0 1.88 -0.84" nodeId="53"/>
+      <TransformGroup name="soundExhaust" translation="0.2 1.97 0.24" nodeId="54"/>
+      <TransformGroup name="soundMotor" translation="0 0.8 0.9" nodeId="55"/>
+      <TransformGroup name="steeringWheelColumn" translation="0 1.58 -0.33" rotation="-36.87 0 0" nodeId="56">
+        <TransformGroup name="steeringWheel" translation="0 1.3411e-07 -8.9407e-08" nodeId="57">
+          <TransformGroup name="leftHandTarget" translation="0.177535 -1.78814e-07 0.1025" rotation="-34 -20.6 -130" nodeId="58"/>
+          <TransformGroup name="rightHandTarget" translation="-0.177535 -1.78814e-07 0.1025" rotation="-34 20.6 130" nodeId="59"/>
+          <Shape name="steeringWheelMesh" shapeId="17" nodeId="60" castsShadows="true" receiveShadows="true" materialIds="7"/>
+        </TransformGroup>
+      </TransformGroup>
+      <TransformGroup name="topArm" translation="0 0.95 -1.42" rotation="0 180 0" nodeId="61">
+        <TransformGroup name="topArmTranslation" translation="3.14722e-08 0 0.36" nodeId="62">
+          <Shape name="topArmEnd" shapeId="18" nodeId="63" castsShadows="true" receiveShadows="true" materialIds="3"/>
+          <TransformGroup name="topArmReference" translation="1.57361e-08 0 0.18" nodeId="64"/>
+        </TransformGroup>
+        <Shape name="topArmTube" shapeId="19" nodeId="65" castsShadows="true" receiveShadows="true" materialIds="7 3"/>
+      </TransformGroup>
+      <TransformGroup name="visuals" nodeId="66">
+        <Shape name="body" shapeId="20" nodeId="67" castsShadows="true" receiveShadows="true" materialIds="8 9 10 2 11 12 7 3 13 14 15 4 16 17 18 19"/>
+        <Shape name="glass" shapeId="21" nodeId="68" castsShadows="false" receiveShadows="true" materialIds="20"/>
+      </TransformGroup>
+      <TransformGroup name="wheels" nodeId="69">
+        <TransformGroup name="wheelBackLeft" translation="0.725 0.683 -1.0625" nodeId="70">
+          <TransformGroup name="wheelBackLeftVisual" nodeId="71">
+            <Shape name="wheelBackLeftMesh" shapeId="22" nodeId="72" castsShadows="true" receiveShadows="true" materialIds="15 9 3 2 8"/>
+          </TransformGroup>
+        </TransformGroup>
+        <TransformGroup name="wheelBackRight" translation="-0.725 0.683 -1.0625" nodeId="73">
+          <TransformGroup name="wheelBackRightVisual" nodeId="74">
+            <Shape name="wheelBackRightMesh" shapeId="23" nodeId="75" castsShadows="true" receiveShadows="true" materialIds="15 9 3 2 8"/>
+          </TransformGroup>
+        </TransformGroup>
+        <TransformGroup name="wheelFrontLeft" translation="0.725 0.365 1.0625" nodeId="76">
+          <Shape name="frontFenderLeft" shapeId="24" nodeId="77" castsShadows="true" receiveShadows="true" materialIds="2 8 7"/>
+          <TransformGroup name="wheelFrontLeftVisual" nodeId="78">
+            <Shape name="wheelFrontLeftMesh" shapeId="25" nodeId="79" castsShadows="true" receiveShadows="true" materialIds="15 9 3 2"/>
+          </TransformGroup>
+        </TransformGroup>
+        <TransformGroup name="wheelFrontRight" translation="-0.725 0.365 1.0625" nodeId="80">
+          <Shape name="frontFenderRight" shapeId="26" nodeId="81" castsShadows="true" receiveShadows="true" materialIds="2 8 7"/>
+          <TransformGroup name="wheelFrontRightVisual" nodeId="82">
+            <Shape name="wheelFrontRightMesh" shapeId="27" nodeId="83" castsShadows="true" receiveShadows="true" materialIds="15 9 3 2"/>
+          </TransformGroup>
+        </TransformGroup>
+      </TransformGroup>
+    </Shape>
+  </Scene>
+</i3D>

@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<vehicle type="tractor" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/vehicle.xsd">
+    <annotation>Ursus C-360 (1976), FS25 mod by Hoplite for megasigmaxd. Node names follow docs/i3d_nodes.md; sources per block in docs/xml_notes.md.</annotation>
+
+    <storeData>
+        <name>C-360</name>
+        <specs>
+            <power>52</power>
+            <maxSpeed>25</maxSpeed>
+        </specs>
+        <functions>
+            <function>$l10n_function_tractor</function>
+        </functions>
+        <image>store_ursusC360.dds</image>
+        <price>28000</price>
+        <lifetime>600</lifetime>
+        <rotation>0</rotation>
+        <brand>URSUSC360</brand>
+        <category>tractorsS</category>
+        <shopTranslationOffset>0 0 0</shopTranslationOffset>
+        <shopRotationOffset>0 0 0</shopRotationOffset>
+    </storeData>
+
+    <base>
+        <typeDesc>$l10n_typeDesc_tractor</typeDesc>
+        <filename>ursusC360.i3d</filename>
+        <size width="1.83" length="3.57" height="2.35" lengthOffset="-0.015"/>
+        <speedLimit value="25"/>
+        <components>
+            <!-- 2340 kg body + 4 wheels (2x0.04 t + 2x0.14 t) = ~2.70 t operating mass; COM gives ~36/64 axle split -->
+            <component centerOfMass="0 0.78 -0.25" solverIterationCount="30" mass="2340"/>
+        </components>
+        <schemaOverlay attacherJointPosition="0 0" name="VEHICLE"/>
+        <mapHotspot type="TRACTOR"/>
+    </base>
+
+    <wheels>
+        <wheelConfigurations>
+            <wheelConfiguration name="$l10n_configuration_valueDefault" price="0" saveId="DEFAULT">
+                <wheels autoRotateBackSpeed="1.5">
+                    <!-- 1: front left, 6.00-16 (steered, not driven, no brake) -->
+                    <wheel isLeft="true" hasTireTracks="true" hasParticles="true">
+                        <physics repr="wheelFrontLeft" driveNode="wheelFrontLeftVisual" radius="0.365" width="0.17" mass="0.04" restLoad="0.5" rotSpeed="1" tireType="mud" brakeFactor="0" forcePointRatio="0.3" suspTravel="0.05" initialCompression="35" spring="28" damper="14"/>
+                    </wheel>
+                    <!-- 2: front right -->
+                    <wheel isLeft="false" hasTireTracks="true" hasParticles="true">
+                        <physics repr="wheelFrontRight" driveNode="wheelFrontRightVisual" radius="0.365" width="0.17" mass="0.04" restLoad="0.5" rotSpeed="1" tireType="mud" brakeFactor="0" forcePointRatio="0.3" suspTravel="0.05" initialCompression="35" spring="28" damper="14"/>
+                    </wheel>
+                    <!-- 3: rear left, 14.9-28 (driven, braked) -->
+                    <wheel isLeft="true" hasTireTracks="true" hasParticles="true">
+                        <physics repr="wheelBackLeft" driveNode="wheelBackLeftVisual" radius="0.683" width="0.378" mass="0.14" restLoad="0.9" rotSpeed="0" tireType="mud" brakeFactor="1" forcePointRatio="0.45" suspTravel="0.07" initialCompression="35" spring="36" damper="22"/>
+                    </wheel>
+                    <!-- 4: rear right -->
+                    <wheel isLeft="false" hasTireTracks="true" hasParticles="true">
+                        <physics repr="wheelBackRight" driveNode="wheelBackRightVisual" radius="0.683" width="0.378" mass="0.14" restLoad="0.9" rotSpeed="0" tireType="mud" brakeFactor="1" forcePointRatio="0.45" suspTravel="0.07" initialCompression="35" spring="36" damper="22"/>
+                    </wheel>
+                </wheels>
+            </wheelConfiguration>
+        </wheelConfigurations>
+
+        <ackermannSteeringConfigurations>
+            <ackermannSteering rotSpeed="30" rotMax="38" rotCenterWheel1="3" rotCenterWheel2="4"/>
+        </ackermannSteeringConfigurations>
+    </wheels>
+
+    <attacherJoints comboDuration="2">
+        <!-- 1: rear 3-point hitch, cat. II. Heights/rotations solved from the hitch geometry (see docs/xml_notes.md).
+             attacherJointBack is a child of bottomArm, so the rotation offsets (applied about the joint's local Z with the
+             same move alpha) equal the bottomArm angles and keep the implement level while lifting. -->
+        <attacherJoint node="attacherJointBack" jointType="implement" moveTime="2.5" allowsJointLimitMovement="true" lowerRotationOffset="-10.77" upperRotationOffset="40.91">
+            <distanceToGround lower="0.25" upper="0.95"/>
+            <rotationNode node="bottomArm" lowerRotation="-10.77 0 0" upperRotation="40.91 0 0"/>
+            <rotationNode2 node="liftArm" lowerRotation="-11.52 0 0" upperRotation="42.24 0 0"/>
+            <topArm rotationNode="topArm" translationNode="topArmTranslation" referenceNode="topArmReference" zScale="-1"/>
+            <schema position="1 0" rotation="0" invertX="false"/>
+        </attacherJoint>
+
+        <!-- 2: swinging drawbar -->
+        <attacherJoint node="attacherJointTrailerLow" jointType="trailerLow" lowerRotLimit="25 52 50" allowsJointLimitMovement="false" allowsLowering="false">
+            <schema position="1 0" rotation="0" invertX="false"/>
+        </attacherJoint>
+
+        <!-- 3: upper transport hitch -->
+        <attacherJoint node="attacherJointTrailer" jointType="trailer" lowerRotLimit="25 52 50" allowsJointLimitMovement="false" allowsLowering="false">
+            <schema position="1 0" rotation="0" invertX="false"/>
+        </attacherJoint>
+
+        <sounds>
+            <!-- sounds.json: pump loop is ~6-14 dB hotter (RMS) than the engine loops -->
+            <hydraulic file="sounds/hydraulicPump.ogg" linkNode="soundCabin" linkNodeOffset="0 -0.75 -0.45" loops="0" innerRadius="3" outerRadius="40" fadeIn="0.1" fadeOut="0.25">
+                <volume indoor="0.45" outdoor="0.5"/>
+            </hydraulic>
+        </sounds>
+    </attacherJoints>
+
+    <powerTakeOffs>
+        <!-- independent 540 PTO; ptoMotorRpmRatio 3.69 = 2000 engine rpm at 540 PTO rpm -->
+        <output outputNode="ptoBack" attacherJointNodes="attacherJointBack attacherJointTrailerLow attacherJointTrailer"/>
+    </powerTakeOffs>
+
+    <lights>
+        <states>
+            <state lightTypes="0"/>
+            <state lightTypes="0 1"/>
+        </states>
+
+        <realLights>
+            <low>
+                <light node="frontLightLeft" lightTypes="0"/>
+                <light node="frontLightRight" lightTypes="0"/>
+                <light node="workLightBack" lightTypes="1"/>
+            </low>
+            <high>
+                <light node="frontLightLeft" lightTypes="0"/>
+                <light node="frontLightRight" lightTypes="0"/>
+                <light node="tailLightLeft" lightTypes="0"/>
+                <light node="tailLightRight" lightTypes="0"/>
+                <light node="workLightBack" lightTypes="1"/>
+                <brakeLight node="brakeLightLeft"/>
+                <brakeLight node="brakeLightRight"/>
+                <turnLightLeft node="turnLightLeftFront"/>
+                <turnLightLeft node="turnLightLeftBack"/>
+                <turnLightRight node="turnLightRightFront"/>
+                <turnLightRight node="turnLightRightBack"/>
+            </high>
+        </realLights>
+    </lights>
+
+    <enterable>
+        <exitPoint node="exitPoint"/>
+        <enterReferenceNode node="enterReferenceNode" interactionRadius="4"/>
+
+        <cameras>
+            <!-- translation/rotation override the i3d so the camera sits on the target's +Z (target yawed 180 deg), the convention VehicleCamera's terrain clipping expects -->
+            <camera node="outdoorCamera" rotatable="true" rotateNode="outdoorCameraTarget" limit="true" useWorldXZRotation="true" rotMinX="-1.4" rotMaxX="1" transMin="3.5" transMax="30" translation="0 0 7.5" rotation="-18 180 0"/>
+            <camera node="indoorCamera" rotatable="true" limit="true" rotMinX="-1.1" rotMaxX="0.5" transMin="0" transMax="0" isInside="true"/>
+        </cameras>
+
+        <characterNode node="playerSkin" cameraMinDistance="0.5">
+            <target ikChain="leftArm" targetNode="leftHandTarget"/>
+            <target ikChain="rightArm" targetNode="rightHandTarget"/>
+            <target ikChain="leftFoot" targetNode="leftFootTarget"/>
+            <target ikChain="rightFoot" targetNode="rightFootTarget"/>
+        </characterNode>
+    </enterable>
+
+    <suspensions>
+        <!-- no cab/seat suspension on the C-360: only the driver's torso sways -->
+        <suspension useCharacterTorso="true" weight="90" minRotation="0 -6 -6" maxRotation="0 6 6" suspensionParametersY="7 1" suspensionParametersZ="7 1"/>
+    </suspensions>
+
+    <motorized>
+        <consumerConfigurations>
+            <consumerConfiguration>
+                <!-- l/h at full load and max rpm on "low" fuel usage (x1.5 medium, x2.5 high); diesel only -->
+                <consumer fillUnitIndex="1" usage="12" fillType="diesel"/>
+            </consumerConfiguration>
+        </consumerConfigurations>
+
+        <differentialConfigurations>
+            <differentialConfiguration>
+                <differentials>
+                    <!-- rear-wheel drive only: front wheels are in no differential -->
+                    <differential torqueRatio="0.5" maxSpeedRatio="1.6" wheelIndex1="3" wheelIndex2="4"/>
+                </differentials>
+            </differentialConfiguration>
+        </differentialConfigurations>
+
+        <motorConfigurations>
+            <motorConfiguration name="S-4003" hp="52" price="0" consumerConfigurationIndex="1">
+                <!-- S-4003: 38.2 kW @ 2200 rpm, 190 Nm @ 1500-1600 rpm, idle 700 rpm; torque in kNm -->
+                <motor minRpm="700" maxRpm="2200" maxForwardSpeed="25.4" maxBackwardSpeed="6.3" accelerationLimit="1.5" brakeForce="5" lowBrakeForceScale="0.3" ptoMotorRpmRatio="3.69">
+                    <torque rpm="700" torque="0.140"/>
+                    <torque rpm="1000" torque="0.170"/>
+                    <torque rpm="1200" torque="0.180"/>
+                    <torque rpm="1500" torque="0.190"/>
+                    <torque rpm="1600" torque="0.190"/>
+                    <torque rpm="1800" torque="0.184"/>
+                    <torque rpm="2000" torque="0.176"/>
+                    <torque rpm="2200" torque="0.166"/>
+                </motor>
+                <!-- unsynchronised 5-speed box + 2-range reducer = 10F/2R; gear maxSpeed = km/h at 2200 rpm on 14.9/13-28 (factory table) -->
+                <transmission gearChangeTime="0.8" autoGearChangeTime="1.2" name="$l10n_info_transmission_manual">
+                    <directionChange useGear="true" reverseGearIndex="1" changeTime="0.8"/>
+                    <manualShift gears="true" groups="true"/>
+                    <groups type="default" changeTime="1.2">
+                        <!-- group ratio is a speed factor: reducer 1.116/4.773 = 0.2339 -->
+                        <group name="L" ratio="0.2339"/>
+                        <group name="H" ratio="1" isDefault="true"/>
+                    </groups>
+                    <forwardGear maxSpeed="4.773" name="1"/>
+                    <forwardGear maxSpeed="7.102" name="2"/>
+                    <forwardGear maxSpeed="9.896" name="3"/>
+                    <forwardGear maxSpeed="15.192" name="4"/>
+                    <forwardGear maxSpeed="25.375" name="5"/>
+                    <backwardGear maxSpeed="6.229" name="R"/>
+                </transmission>
+            </motorConfiguration>
+        </motorConfigurations>
+
+        <exhaustEffects>
+            <exhaustEffect node="exhaustNode" filename="$data/effects/exhaust/exhaust.i3d" minRpmColor="0.35 0.35 0.37 0.25" maxRpmColor="0.06 0.06 0.07 1.1" minRpmScale="0.1" maxRpmScale="0.55" upFactor="0.75"/>
+        </exhaustEffects>
+        <exhaustFlap node="exhaustFlap" maxRot="50" rotationAxis="1"/>
+
+        <sounds>
+            <motorStart file="sounds/motorStart.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="100">
+                <volume indoor="0.8" outdoor="1.0"/>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motorStart>
+            <motorStop file="sounds/motorStop.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="100">
+                <volume indoor="0.8" outdoor="1.0"/>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motorStop>
+
+            <!-- Engine: 4 no-load loops weighted by (1 - MOTOR_LOAD) and 4 full-load loops weighted by MOTOR_LOAD.
+                 Each loop: pitch = rpm / native rpm (MOTOR_RPM_REAL), volume = equal-power rpm window x load weight
+                 (modifier types multiply). Windows cross at the geometric mean of neighbouring native rpms. -->
+            <!-- motorIdle.ogg: native 700 rpm, no-load layer, only near idle -->
+            <motor file="sounds/motorIdle.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="110" fadeIn="0.4" fadeOut="0.3">
+                <volume indoor="0.75" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="0" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="780" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="848" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="915" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="982" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1050" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.00" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.25" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_LOAD" value="0.50" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_LOAD" value="0.75" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_LOAD" value="1.00" modifiedValue="0.000"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="500" modifiedValue="0.7143"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2500" modifiedValue="3.5714"/>
+                </pitch>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motor>
+            <!-- motorNoLoad_1200.ogg: native 1200 rpm, no-load layer -->
+            <motor file="sounds/motorNoLoad_1200.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="110" fadeIn="0.4" fadeOut="0.3">
+                <volume indoor="0.75" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="780" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="848" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="915" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="982" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1050" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1330" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1379" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1428" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1476" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1525" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.00" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.25" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_LOAD" value="0.50" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_LOAD" value="0.75" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_LOAD" value="1.00" modifiedValue="0.000"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="500" modifiedValue="0.4167"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2500" modifiedValue="2.0833"/>
+                </pitch>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motor>
+            <!-- motorNoLoad_1700.ogg: native 1700 rpm, no-load layer -->
+            <motor file="sounds/motorNoLoad_1700.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="110" fadeIn="0.4" fadeOut="0.3">
+                <volume indoor="0.75" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="1330" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1379" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1428" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1476" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1525" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1880" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1929" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1978" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2026" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2075" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.00" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.25" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_LOAD" value="0.50" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_LOAD" value="0.75" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_LOAD" value="1.00" modifiedValue="0.000"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="500" modifiedValue="0.2941"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2500" modifiedValue="1.4706"/>
+                </pitch>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motor>
+            <!-- motorNoLoad_2300.ogg: native 2300 rpm, no-load layer (governed max 2200 plays it at pitch 0.957) -->
+            <motor file="sounds/motorNoLoad_2300.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="110" fadeIn="0.4" fadeOut="0.3">
+                <volume indoor="0.75" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="1880" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1929" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1978" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2026" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2075" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2600" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.00" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.25" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_LOAD" value="0.50" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_LOAD" value="0.75" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_LOAD" value="1.00" modifiedValue="0.000"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="500" modifiedValue="0.2174"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2500" modifiedValue="1.0870"/>
+                </pitch>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motor>
+            <!-- motorLoad_1000.ogg: native 1000 rpm, full-load layer (also covers lugging below 1000) -->
+            <motor file="sounds/motorLoad_1000.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="110" fadeIn="0.4" fadeOut="0.3">
+                <volume indoor="0.75" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="0" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1130" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1178" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1225" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1272" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1320" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.00" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.25" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_LOAD" value="0.50" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_LOAD" value="0.75" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_LOAD" value="1.00" modifiedValue="1.000"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="500" modifiedValue="0.5000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2500" modifiedValue="2.5000"/>
+                </pitch>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motor>
+            <!-- motorLoad_1500.ogg: native 1500 rpm, full-load layer -->
+            <motor file="sounds/motorLoad_1500.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="110" fadeIn="0.4" fadeOut="0.3">
+                <volume indoor="0.75" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="1130" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1178" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1225" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1272" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1320" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1640" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1686" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1732" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1779" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1825" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.00" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.25" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_LOAD" value="0.50" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_LOAD" value="0.75" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_LOAD" value="1.00" modifiedValue="1.000"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="500" modifiedValue="0.3333"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2500" modifiedValue="1.6667"/>
+                </pitch>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motor>
+            <!-- motorLoad_2000.ogg: native 2000 rpm, full-load layer -->
+            <motor file="sounds/motorLoad_2000.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="110" fadeIn="0.4" fadeOut="0.3">
+                <volume indoor="0.75" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="1640" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1686" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1732" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1779" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="1825" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2040" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2068" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2095" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2122" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2150" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.00" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.25" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_LOAD" value="0.50" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_LOAD" value="0.75" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_LOAD" value="1.00" modifiedValue="1.000"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="500" modifiedValue="0.2500"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2500" modifiedValue="1.2500"/>
+                </pitch>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motor>
+            <!-- motorLoad_2200.ogg: native 2200 rpm (rated), full-load layer -->
+            <motor file="sounds/motorLoad_2200.ogg" linkNode="soundMotor" innerRadius="4" outerRadius="110" fadeIn="0.4" fadeOut="0.3">
+                <volume indoor="0.75" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="2040" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2068" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2095" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2122" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2150" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2600" modifiedValue="1.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.00" modifiedValue="0.000"/>
+                    <modifier type="MOTOR_LOAD" value="0.25" modifiedValue="0.383"/>
+                    <modifier type="MOTOR_LOAD" value="0.50" modifiedValue="0.707"/>
+                    <modifier type="MOTOR_LOAD" value="0.75" modifiedValue="0.924"/>
+                    <modifier type="MOTOR_LOAD" value="1.00" modifiedValue="1.000"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="MOTOR_RPM_REAL" value="500" modifiedValue="0.2273"/>
+                    <modifier type="MOTOR_RPM_REAL" value="2500" modifiedValue="1.1364"/>
+                </pitch>
+                <lowpassGain indoor="0.7" outdoor="1.0"/>
+            </motor>
+
+            <!-- gearbox whine (native ~20 km/h), placed under the seat; pitch ~ speed/20, louder under load -->
+            <gearbox file="sounds/gearboxWhine.ogg" linkNode="soundCabin" linkNodeOffset="0 -1.05 0.3" innerRadius="3" outerRadius="45" fadeIn="0.2" fadeOut="0.3">
+                <volume indoor="0.6" outdoor="0.45">
+                    <modifier type="SPEED" value="0.5" modifiedValue="0.0"/>
+                    <modifier type="SPEED" value="3" modifiedValue="0.25"/>
+                    <modifier type="SPEED" value="10" modifiedValue="0.6"/>
+                    <modifier type="SPEED" value="20" modifiedValue="0.9"/>
+                    <modifier type="SPEED" value="26" modifiedValue="1.0"/>
+                    <modifier type="MOTOR_LOAD" value="0.0" modifiedValue="0.7"/>
+                    <modifier type="MOTOR_LOAD" value="1.0" modifiedValue="1.0"/>
+                </volume>
+                <pitch indoor="1.0" outdoor="1.0">
+                    <modifier type="SPEED" value="0" modifiedValue="0.45"/>
+                    <modifier type="SPEED" value="5" modifiedValue="0.55"/>
+                    <modifier type="SPEED" value="20" modifiedValue="1.0"/>
+                    <modifier type="SPEED" value="26" modifiedValue="1.3"/>
+                </pitch>
+            </gearbox>
+
+            <!-- shifting without the clutch (manual + clutch mode); gearGrind.ogg is a one-shot, so play it once per event -->
+            <clutchCracking file="sounds/gearGrind.ogg" linkNode="soundCabin" linkNodeOffset="0 -1.05 0.3" loops="1" innerRadius="3" outerRadius="40">
+                <volume indoor="0.9" outdoor="0.8"/>
+            </clutchCracking>
+            <gearEngaged file="sounds/gearShift.ogg" linkNode="soundCabin" linkNodeOffset="0 -1.05 0.3" innerRadius="3" outerRadius="30">
+                <volume indoor="0.9" outdoor="0.6"/>
+            </gearEngaged>
+            <gearDisengaged file="sounds/gearShift.ogg" linkNode="soundCabin" linkNodeOffset="0 -1.05 0.3" innerRadius="3" outerRadius="30" volumeScale="0.6" pitchScale="1.1">
+                <volume indoor="0.9" outdoor="0.6"/>
+            </gearDisengaged>
+            <gearGroupChange file="sounds/gearShift.ogg" linkNode="soundCabin" linkNodeOffset="0 -1.05 0.3" innerRadius="3" outerRadius="30" pitchScale="0.85">
+                <volume indoor="0.9" outdoor="0.6"/>
+            </gearGroupChange>
+        </sounds>
+
+        <dashboards>
+            <!-- tachometer (gauge_tacho.dds): 0 rpm at +135 deg, 3000 rpm at -135 deg, around the needle's local Z (dial normal) -->
+            <dashboard displayType="ROT" valueType="rpm" node="rpmNeedle" rotAxis="3" minRot="135" maxRot="-135" minValueRot="0" maxValueRot="3000" doInterpolation="true"/>
+        </dashboards>
+    </motorized>
+
+    <drivable>
+        <steeringWheel node="steeringWheel" indoorRotation="600" outdoorRotation="120"/>
+    </drivable>
+
+    <cylindered>
+        <movingParts>
+            <!-- lift rods: local +Z aims at the lower-link pin, Z-scaled to keep contact; updated every frame because the hitch rotationNode does not dirty moving parts -->
+            <movingPart node="liftRodLeft" referencePoint="liftRodLeftRef" referenceFrame="liftRodLeft" scaleZ="true" isActiveDirty="true" maxUpdateDistance="40"/>
+            <movingPart node="liftRodRight" referencePoint="liftRodRightRef" referenceFrame="liftRodRight" scaleZ="true" isActiveDirty="true" maxUpdateDistance="40"/>
+        </movingParts>
+    </cylindered>
+
+    <fillUnit>
+        <fillUnitConfigurations>
+            <fillUnitConfiguration>
+                <fillUnits>
+                    <fillUnit unitTextOverride="$l10n_unit_literShort" showOnHud="false" showInShop="false" fillTypes="diesel" capacity="70">
+                        <exactFillRootNode node="exactFillRootNodeFuel"/>
+                        <!-- fuel gauge (lower arc of gauge_small.dds): empty lower-left (+120 deg) via down (+180) to full lower-right (+240) -->
+                        <dashboard displayType="ROT" valueType="fillLevel" node="fuelNeedle" rotAxis="3" minRot="120" maxRot="240" minValueRot="0" maxValueRot="70" doInterpolation="true" interpolationSpeed="0.3"/>
+                    </fillUnit>
+                </fillUnits>
+            </fillUnitConfiguration>
+        </fillUnitConfigurations>
+    </fillUnit>
+
+    <honk>
+        <sound file="sounds/horn.ogg" linkNode="soundMotor" linkNodeOffset="0 0.2 0.7" innerRadius="10" outerRadius="120">
+            <volume indoor="0.7" outdoor="1.0"/>
+        </sound>
+    </honk>
+
+    <ai>
+        <agent frontWheelIndices="1 2"/>
+        <!-- AIImplement builds the obstacle box in front of the tractor from base/size; no i3d trigger node needed -->
+        <collisionTrigger useSize="true"/>
+    </ai>
+
+    <foliageBending>
+        <bendingNode minX="-0.84" maxX="0.84" minZ="0.70" maxZ="1.45" yOffset="0.4"/>
+        <bendingNode minX="-0.92" maxX="0.92" minZ="-1.75" maxZ="-0.38" yOffset="0.6"/>
+        <bendingNode minX="-0.35" maxX="0.35" minZ="-0.38" maxZ="0.70" yOffset="0.35"/>
+    </foliageBending>
+
+    <wearable wearDuration="480" workMultiplier="5" fieldMultiplier="2"/>
+    <washable dirtDuration="90" washDuration="1" workMultiplier="3" fieldMultiplier="2"/>
+
+    <!-- I3D_MAPPINGS -->
+    <i3dMappings>
+        <i3dMapping id="ursusC360_main_component1" node="0>"/>
+        <i3dMapping id="attacherJointTrailer" node="0>0"/>
+        <i3dMapping id="attacherJointTrailerLow" node="0>1"/>
+        <i3dMapping id="bottomArm" node="0>2"/>
+        <i3dMapping id="attacherJointBack" node="0>2|0"/>
+        <i3dMapping id="bottomArmLeft" node="0>2|1"/>
+        <i3dMapping id="liftRodLeftRef" node="0>2|1|0"/>
+        <i3dMapping id="bottomArmRight" node="0>2|2"/>
+        <i3dMapping id="liftRodRightRef" node="0>2|2|0"/>
+        <i3dMapping id="collisions" node="0>3"/>
+        <i3dMapping id="collisionCab" node="0>3|0"/>
+        <i3dMapping id="collisionFenderLeft" node="0>3|1"/>
+        <i3dMapping id="collisionFenderRight" node="0>3|2"/>
+        <i3dMapping id="collisionRear" node="0>3|3"/>
+        <i3dMapping id="enterReferenceNode" node="0>4"/>
+        <i3dMapping id="exactFillRootNodeFuel" node="0>5"/>
+        <i3dMapping id="exhaustFlap" node="0>6"/>
+        <i3dMapping id="exhaustNode" node="0>7"/>
+        <i3dMapping id="exitPoint" node="0>8"/>
+        <i3dMapping id="frontAxle" node="0>9"/>
+        <i3dMapping id="frontAxleMesh" node="0>9|0"/>
+        <i3dMapping id="fuelNeedleRot" node="0>10"/>
+        <i3dMapping id="fuelNeedle" node="0>10|0"/>
+        <i3dMapping id="indoorCameraTarget" node="0>11"/>
+        <i3dMapping id="indoorCamera" node="0>11|0"/>
+        <i3dMapping id="leftFootTarget" node="0>12"/>
+        <i3dMapping id="liftArm" node="0>13"/>
+        <i3dMapping id="liftArmMesh" node="0>13|0"/>
+        <i3dMapping id="liftRodLeft" node="0>13|1"/>
+        <i3dMapping id="liftRodLeftMesh" node="0>13|1|0"/>
+        <i3dMapping id="liftRodRight" node="0>13|2"/>
+        <i3dMapping id="liftRodRightMesh" node="0>13|2|0"/>
+        <i3dMapping id="lights" node="0>14"/>
+        <i3dMapping id="brakeLightLeft" node="0>14|0"/>
+        <i3dMapping id="brakeLightRight" node="0>14|1"/>
+        <i3dMapping id="frontLightLeft" node="0>14|2"/>
+        <i3dMapping id="frontLightRight" node="0>14|3"/>
+        <i3dMapping id="tailLightLeft" node="0>14|4"/>
+        <i3dMapping id="tailLightRight" node="0>14|5"/>
+        <i3dMapping id="turnLightLeftBack" node="0>14|6"/>
+        <i3dMapping id="turnLightLeftFront" node="0>14|7"/>
+        <i3dMapping id="turnLightRightBack" node="0>14|8"/>
+        <i3dMapping id="turnLightRightFront" node="0>14|9"/>
+        <i3dMapping id="workLightBack" node="0>14|10"/>
+        <i3dMapping id="outdoorCameraTarget" node="0>15"/>
+        <i3dMapping id="outdoorCamera" node="0>15|0"/>
+        <i3dMapping id="playerSkin" node="0>16"/>
+        <i3dMapping id="ptoBack" node="0>17"/>
+        <i3dMapping id="rightFootTarget" node="0>18"/>
+        <i3dMapping id="rpmNeedleRot" node="0>19"/>
+        <i3dMapping id="rpmNeedle" node="0>19|0"/>
+        <i3dMapping id="seat" node="0>20"/>
+        <i3dMapping id="soundCabin" node="0>21"/>
+        <i3dMapping id="soundExhaust" node="0>22"/>
+        <i3dMapping id="soundMotor" node="0>23"/>
+        <i3dMapping id="steeringWheelColumn" node="0>24"/>
+        <i3dMapping id="steeringWheel" node="0>24|0"/>
+        <i3dMapping id="leftHandTarget" node="0>24|0|0"/>
+        <i3dMapping id="rightHandTarget" node="0>24|0|1"/>
+        <i3dMapping id="steeringWheelMesh" node="0>24|0|2"/>
+        <i3dMapping id="topArm" node="0>25"/>
+        <i3dMapping id="topArmTranslation" node="0>25|0"/>
+        <i3dMapping id="topArmEnd" node="0>25|0|0"/>
+        <i3dMapping id="topArmReference" node="0>25|0|1"/>
+        <i3dMapping id="topArmTube" node="0>25|1"/>
+        <i3dMapping id="visuals" node="0>26"/>
+        <i3dMapping id="body" node="0>26|0"/>
+        <i3dMapping id="glass" node="0>26|1"/>
+        <i3dMapping id="wheels" node="0>27"/>
+        <i3dMapping id="wheelBackLeft" node="0>27|0"/>
+        <i3dMapping id="wheelBackLeftVisual" node="0>27|0|0"/>
+        <i3dMapping id="wheelBackLeftMesh" node="0>27|0|0|0"/>
+        <i3dMapping id="wheelBackRight" node="0>27|1"/>
+        <i3dMapping id="wheelBackRightVisual" node="0>27|1|0"/>
+        <i3dMapping id="wheelBackRightMesh" node="0>27|1|0|0"/>
+        <i3dMapping id="wheelFrontLeft" node="0>27|2"/>
+        <i3dMapping id="frontFenderLeft" node="0>27|2|0"/>
+        <i3dMapping id="wheelFrontLeftVisual" node="0>27|2|1"/>
+        <i3dMapping id="wheelFrontLeftMesh" node="0>27|2|1|0"/>
+        <i3dMapping id="wheelFrontRight" node="0>27|3"/>
+        <i3dMapping id="frontFenderRight" node="0>27|3|0"/>
+        <i3dMapping id="wheelFrontRightVisual" node="0>27|3|1"/>
+        <i3dMapping id="wheelFrontRightMesh" node="0>27|3|1|0"/>
+    </i3dMappings>
+    <!-- /I3D_MAPPINGS -->
+</vehicle>

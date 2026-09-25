@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="94" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://validation.gdn.giants-software.com/xml/fs25/modDesc.xsd">
+    <author>Hoplite for megasigmaxd</author>
+    <version>1.0.0.0</version>
+
+    <title>
+        <pl>Ursus C-360</pl>
+        <en>Ursus C-360</en>
+        <de>Ursus C-360</de>
+    </title>
+
+    <description>
+        <pl><![CDATA[Ursus C-360 (1976) – legendarny polski ciągnik z Zakładów Mechanicznych Ursus.
+
+Silnik: S-4003, 4 cylindry, diesel, 38,2 kW (52 KM) przy 2200 obr/min, 190 Nm przy 1500–1600 obr/min
+Skrzynia: niesynchronizowana, 5 biegów × reduktor = 10 do przodu / 2 wstecz (prędkości fabryczne, maks. 25,4 km/h)
+Napęd: na tylne koła, ogumienie 14.9-28 / 6.00-16
+WOM: niezależny, 540 obr/min
+TUZ kat. II (udźwig 1200 kg), zaczep transportowy górny i belka wahliwa
+Zbiornik paliwa: 70 l
+
+Prawdziwe dźwięki silnika: rozruch, wolne obroty oraz pętle bez obciążenia i pod pełnym obciążeniem płynnie mieszane według obrotów i obciążenia, wycie skrzyni biegów, zgrzyt przy zmianie biegu bez sprzęgła.
+
+Cena: 28 000
+Autor: Hoplite dla megasigmaxd]]></pl>
+        <en><![CDATA[Ursus C-360 (1976) – the legendary Polish tractor from the Ursus works.
+
+Engine: S-4003, 4-cylinder diesel, 38.2 kW (52 hp) at 2200 rpm, 190 Nm at 1500-1600 rpm
+Gearbox: unsynchronised 5-speed with 2-range reducer = 10 forward / 2 reverse (factory speeds, max. 25.4 km/h)
+Drive: rear wheels, tyres 14.9-28 / 6.00-16
+PTO: independent, 540 rpm
+Cat. II three-point hitch (1200 kg lift), upper transport hitch and swinging drawbar
+Fuel tank: 70 l
+
+Real engine sounds: start, idle, no-load and full-load loops crossfaded by rpm and engine load, gearbox whine and gear grinding when shifting without the clutch.
+
+Price: 28,000
+Author: Hoplite for megasigmaxd]]></en>
+        <de><![CDATA[Ursus C-360 (1976) – der legendäre polnische Traktor aus dem Ursus-Werk.
+
+Motor: S-4003, 4-Zylinder-Diesel, 38,2 kW (52 PS) bei 2200 U/min, 190 Nm bei 1500–1600 U/min
+Getriebe: unsynchronisiert, 5 Gänge mit Gruppenschaltung = 10 vorwärts / 2 rückwärts (Werksgeschwindigkeiten, max. 25,4 km/h)
+Antrieb: Hinterrad, Bereifung 14.9-28 / 6.00-16
+Zapfwelle: unabhängig, 540 U/min
+Dreipunkt Kat. II (1200 kg Hubkraft), obere Transportkupplung und Pendelzugmaul
+Kraftstofftank: 70 l
+
+Echte Motorgeräusche: Anlassen, Leerlauf sowie Schleifen ohne Last und unter Volllast, nach Drehzahl und Motorlast überblendet, Getriebeheulen und Kratzen beim Schalten ohne Kupplung.
+
+Preis: 28.000
+Autor: Hoplite für megasigmaxd]]></de>
+    </description>
+
+    <iconFilename>icon_ursusC360.dds</iconFilename>
+    <multiplayer supported="true"/>
+
+    <brands>
+        <brand name="URSUSC360" title="Ursus" image="brand_ursus.dds"/>
+    </brands>
+
+    <storeItems>
+        <storeItem xmlFilename="ursusC360.xml"/>
+    </storeItems>
+</modDesc>

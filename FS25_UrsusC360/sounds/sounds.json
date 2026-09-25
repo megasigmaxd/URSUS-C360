@@ -1,0 +1,154 @@
+{
+  "sample_rate": 44100,
+  "engine": "S-4003 4-cyl diesel, firing order 1-3-4-2",
+  "files": {
+    "motorIdle": {
+      "type": "loop",
+      "native_rpm": 700.0,
+      "load": 0,
+      "file": "motorIdle.ogg",
+      "duration_s": 3.0857,
+      "peak_dbfs": -4.17,
+      "rms_dbfs": -29.04,
+      "loop_samples": 136080,
+      "seam_step_ratio": 0.008
+    },
+    "motorNoLoad_1200": {
+      "type": "loop",
+      "native_rpm": 1200.0,
+      "load": 0,
+      "file": "motorNoLoad_1200.ogg",
+      "duration_s": 3.0,
+      "peak_dbfs": -1.74,
+      "rms_dbfs": -23.2,
+      "loop_samples": 132300,
+      "seam_step_ratio": 0.032
+    },
+    "motorNoLoad_1700": {
+      "type": "loop",
+      "native_rpm": 1699.994,
+      "load": 0,
+      "file": "motorNoLoad_1700.ogg",
+      "duration_s": 2.9647,
+      "peak_dbfs": -1.01,
+      "rms_dbfs": -22.03,
+      "loop_samples": 130744,
+      "seam_step_ratio": 0.008
+    },
+    "motorNoLoad_2300": {
+      "type": "loop",
+      "native_rpm": 2300.007,
+      "load": 0,
+      "file": "motorNoLoad_2300.ogg",
+      "duration_s": 3.0261,
+      "peak_dbfs": -1.42,
+      "rms_dbfs": -16.41,
+      "loop_samples": 133450,
+      "seam_step_ratio": 0.051
+    },
+    "motorLoad_1000": {
+      "type": "loop",
+      "native_rpm": 1000.0,
+      "load": 1,
+      "file": "motorLoad_1000.ogg",
+      "duration_s": 3.0,
+      "peak_dbfs": -6.23,
+      "rms_dbfs": -18.93,
+      "loop_samples": 132300,
+      "seam_step_ratio": 0.03
+    },
+    "motorLoad_1500": {
+      "type": "loop",
+      "native_rpm": 1500.0,
+      "load": 1,
+      "file": "motorLoad_1500.ogg",
+      "duration_s": 3.04,
+      "peak_dbfs": -3.67,
+      "rms_dbfs": -15.38,
+      "loop_samples": 134064,
+      "seam_step_ratio": 0.063
+    },
+    "motorLoad_2000": {
+      "type": "loop",
+      "native_rpm": 2000.0,
+      "load": 1,
+      "file": "motorLoad_2000.ogg",
+      "duration_s": 3.0,
+      "peak_dbfs": -2.35,
+      "rms_dbfs": -12.48,
+      "loop_samples": 132300,
+      "seam_step_ratio": 0.083
+    },
+    "motorLoad_2200": {
+      "type": "loop",
+      "native_rpm": 2200.0,
+      "load": 1,
+      "file": "motorLoad_2200.ogg",
+      "duration_s": 3.0,
+      "peak_dbfs": -1.57,
+      "rms_dbfs": -10.17,
+      "loop_samples": 132300,
+      "seam_step_ratio": 0.078
+    },
+    "motorStart": {
+      "type": "oneshot",
+      "native_rpm": 700,
+      "load": 0,
+      "file": "motorStart.ogg",
+      "duration_s": 4.6,
+      "peak_dbfs": -1.31,
+      "rms_dbfs": -20.21
+    },
+    "motorStop": {
+      "type": "oneshot",
+      "native_rpm": 700,
+      "load": 0,
+      "file": "motorStop.ogg",
+      "duration_s": 2.4,
+      "peak_dbfs": -4.57,
+      "rms_dbfs": -26.5
+    },
+    "gearboxWhine": {
+      "type": "loop",
+      "native_speed_kmh": 20,
+      "file": "gearboxWhine.ogg",
+      "duration_s": 3.0,
+      "peak_dbfs": -6.38,
+      "rms_dbfs": -16.74,
+      "loop_samples": 132300,
+      "seam_step_ratio": 0.514
+    },
+    "gearShift": {
+      "type": "oneshot",
+      "file": "gearShift.ogg",
+      "duration_s": 0.45,
+      "peak_dbfs": -1.94,
+      "rms_dbfs": -22.21
+    },
+    "gearGrind": {
+      "type": "oneshot",
+      "file": "gearGrind.ogg",
+      "duration_s": 0.65,
+      "peak_dbfs": -1.94,
+      "rms_dbfs": -15.65
+    },
+    "hydraulicPump": {
+      "type": "loop",
+      "file": "hydraulicPump.ogg",
+      "duration_s": 2.5,
+      "peak_dbfs": -1.94,
+      "rms_dbfs": -10.9,
+      "loop_samples": 110250,
+      "seam_step_ratio": 0.402
+    },
+    "horn": {
+      "type": "loop",
+      "file": "horn.ogg",
+      "duration_s": 1.2,
+      "peak_dbfs": -1.94,
+      "rms_dbfs": -8.83,
+      "loop_samples": 52920,
+      "seam_step_ratio": 0.984
+    }
+  }
+}
